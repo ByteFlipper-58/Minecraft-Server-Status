@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Статус Сервера Майнкрафт</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script src="https://sad.adsgram.ai/js/sad.min.js"></script>
+    <link rel="stylesheet" href="./css/styles.css">
+</head>
+<body>
+    <div id="content">
+        <h1>Статус Сервера Майнкрафт</h1>
+        <p>Быстро и удобно получить текущий статус любого сервера Minecraft.</p>
+        <div class="dropdown">
+            <button id="versionButton">Выберите версию</button>
+            <div id="dropdownContent" class="dropdown-content">
+                <a href="#" data-version="Java Версия">Java Версия</a>
+                <a href="#" data-version="Bedrock Версия">Bedrock Версия</a>
+            </div>
+        </div>
+        <input type="text" placeholder="Введите IP адрес сервера" id="serverIp" />
+        <button id="checkStatus">Проверить</button> 
+    </div>
+
+    <script>
+        const tg = window.Telegram.WebApp;
+
+        // Function to apply default theme colors
+        const applyDefaultTheme = () => {
+            document.documentElement.style.setProperty('--bg-color', '#17212b');
+            document.documentElement.style.setProperty('--text-color', '#f5f5f5');
+            document.documentElement.style.setProperty('--hint-color', '#708499');
+            document.documentElement.style.setProperty('--link-color', '#6ab3f3');
+            document.documentElement.style.setProperty('--button-color', '#5288c1');
+            document.documentElement.style.setProperty('--button-text-color', '#ffffff');
+            document.documentElement.style.setProperty('--secondary-bg-color', '#232e3c');
+            document.documentElement.style.setProperty('--header-bg-color', '#17212b');
+            document.documentElement.style.setProperty('--accent-text-color', '#6ab2f2');
+            document.documentElement.style.setProperty('--section-bg-color', '#17212b');
+            document.documentElement.style.setProperty('--section-header-text-color', '#6ab3f3');
+            document.documentElement.style.setProperty('--section-separator-color', '#111921');
+            document.documentElement.style.setProperty('--subtitle-text-color', '#708499');
+            document.documentElement.style.setProperty('--destructive-text-color', '#ec3942');
+        };
+
+        // Function to apply theme params if available, otherwise use default theme
+        const applyTheme = () => {
+            const themeParams = tg.themeParams || {};
+            if (Object.keys(themeParams).length > 0) {
+                document.documentElement.style.setProperty('--tg-theme-bg-color', themeParams.bg_color || '#17212b');
+                document.documentElement.style.setProperty('--tg-theme-text-color', themeParams.text_color || '#f5f5f5');
+                document.documentElement.style.setProperty('--tg-theme-hint-color', themeParams.hint_color || '#708499');
+                document.documentElement.style.setProperty('--tg-theme-link-color', themeParams.link_color || '#6ab3f3');
+                document.documentElement.style.setProperty('--tg-theme-button-color', themeParams.button_color || '#5288c1');
+                document.documentElement.style.setProperty('--tg-theme-button-text-color', themeParams.button_text_color || '#ffffff');
+                document.documentElement.style.setProperty('--tg-theme-secondary-bg-color', themeParams.secondary_bg_color || '#232e3c');
+                document.documentElement.style.setProperty('--tg-theme-header-bg-color', themeParams.header_bg_color || '#17212b');
+                document.documentElement.style.setProperty('--tg-theme-accent-text-color', themeParams.accent_text_color || '#6ab2f2');
+                document.documentElement.style.setProperty('--tg-theme-section-bg-color', themeParams.section_bg_color || '#17212b');
+                document.documentElement.style.setProperty('--tg-theme-section-header-text-color', themeParams.section_header_text_color || '#6ab3f3');
+                document.documentElement.style.setProperty('--tg-theme-section-separator-color', themeParams.section_separator_color || '#111921');
+                document.documentElement.style.setProperty('--tg-theme-subtitle-text-color', themeParams.subtitle_text_color || '#708499');
+                document.documentElement.style.setProperty('--tg-theme-destructive-text-color', themeParams.destructive_text_color || '#ec3942');
+            } else {
+                applyDefaultTheme();
+            }
+        };
+
+        // Initialize Telegram WebApp and apply theme
+        if (tg.initDataUnsafe) {
+            tg.ready();
+            tg.BackButton.hide();
+            applyTheme();
+            tg.onEvent('themeChanged', applyTheme);
+        } else {
+            applyDefaultTheme();
+        }
+
+        // Toggle dropdown visibility
+        document.getElementById('versionButton').addEventListener('click', function() {
+            document.getElementById('dropdownContent').classList.toggle('show');
+        });
+
+        // Handle dropdown item clicks
+        document.querySelectorAll('#dropdownContent a').forEach(function(item) {
+            item.addEventListener('click', function() {
+                const version = this.getAttribute('data-version');
+               
+                document.getElementById('versionButton').textContent = version;
+                document.getElementById('dropdownContent').classList.remove('show');
+                // Add your logic for the selected version here
+            });
+        });
+
+        // Function to initialize AdsGram SDK
+        const initializeAdsGram = (debug) => {
+            return window.Adsgram.init({ 
+                blockId: "902", 
+                debug: debug, 
+                debugBannerType: "FullscreenMedia" 
+            });
+        };
+
+        let AdController = initializeAdsGram(true); // Initialize with debug enabled for testing
+
+        // Add event listener for the "Проверить" button
+        document.getElementById('checkStatus').addEventListener('click', function() {
+            const serverIp = document.getElementById('serverIp').value;
+            if (serverIp) {
+                AdController.show().then((result) => {
+                    if (result.done) {
+                        window.location.href = `status.html?ip=${encodeURIComponent(serverIp)}`;
+                    } else {
+                        alert('Пользователь пропустил рекламу.');
+                        window.location.href = `status.html?ip=${encodeURIComponent(serverIp)}`;
+                    }
+                }).catch((result) => {
+                    alert('Произошла ошибка при показе рекламы.');
+                    window.location.href = `status.html?ip=${encodeURIComponent(serverIp)}`;
+                });
+            } else {
+                alert('Пожалуйста, введите IP адрес сервера.');
+            }
+        });
+
+        // Close the dropdown if the user clicks outside of it
+        window.addEventListener('click', function(event) {
+            if (!event.target.matches('#versionButton')) {
+                const dropdowns = document.getElementsByClassName('dropdown-content');
+                for (let i = 0; i < dropdowns.length; i++) {
+                    const openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

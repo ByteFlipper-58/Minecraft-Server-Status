@@ -1,0 +1,123 @@
+:root {
+    --bg-color: #17212b; /* Основной фон страницы */
+    --text-color: #f5f5f5; /* Цвет текста */
+    --link-color: #6ab3f3; /* Цвет ссылок */
+    --button-color: #5288c1; /* Цвет кнопок */
+    --button-text-color: #ffffff; /* Цвет текста кнопок */
+    --section-bg-color: #232e3c; /* Цвет фона карточек */
+    --header-bg-color: #17212b; /* Цвет фона заголовка */
+    --accent-text-color: #6ab2f2; /* Цвет акцентов */
+    --section-header-text-color: #6ab3f3; /* Цвет заголовков секций */
+    --section-separator-color: #111921; /* Цвет разделителей секций */
+    --subtitle-text-color: #708499; /* Цвет подзаголовков */
+    --destructive-text-color: #ec3942; /* Цвет для критических сообщений */
+}
+
+body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    box-sizing: border-box;
+}
+
+.container {
+    background-color: var(--section-bg-color);
+    border-radius: 0px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    max-width: 800px;
+    width: 100%;
+    box-sizing: border-box;
+    height: calc(100vh - 0px); /* Высота контейнера с учетом отступов */
+    overflow-y: auto; /* Вертикальная прокрутка, если контента больше, чем высота */
+}
+
+header {
+    text-align: center;
+    border-bottom: 1px solid var(--header-bg-color);
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+h1 {
+    font-size: 26px;
+    margin: 0;
+    color: var(--section-header-text-color);
+}
+
+main {
+    padding-top: 10px;
+}
+
+.server-info, .players, .mods, .plugins, .additional-info {
+    margin-bottom: 20px;
+    background-color: var(--bg-color); /* Фон карточек */
+    border-radius: 8px;
+    padding: 15px;
+    border: 1px solid var(--section-separator-color);
+}
+
+h2 {
+    font-size: 20px;
+    color: var(--section-header-text-color);
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+p {
+    margin: 5px 0;
+}
+
+.server-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 8px;
+    margin-top: 10px;
+}
+
+.motd {
+    font-style: italic;
+    margin-bottom: 10px;
+}
+
+.players ul, .mods ul, .plugins ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.players li, .mods li, .plugins li {
+    background-color: var(--section-bg-color);
+    padding: 10px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    border: 1px solid var(--section-separator-color);
+}
+
+.toggle-btn {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    background-color: var(--button-color);
+    color: var(--button-text-color);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.toggle-btn:hover {
+    background-color: var(--accent-text-color);
+}
+
+.hidden {
+    display: none;
+}
