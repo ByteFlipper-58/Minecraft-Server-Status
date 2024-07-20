@@ -6,6 +6,7 @@
     <title>Статус Сервера Minecraft</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <link rel="stylesheet" href="./css/status.css">
+    <script src="https://cdn.jsdelivr.net/npm/eruda"></script>
 </head>
 <body>
     <div class="container">
@@ -179,6 +180,7 @@
 
         const serverIp = getQueryParam('ip');
         fetchServerStatus(serverIp);
+        eruda.init();
     </script>
 </body>
 </html>
