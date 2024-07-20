@@ -117,8 +117,8 @@
                         //window.location.href = `status.html?ip=${encodeURIComponent(serverIp)}`;
                     }
                 }).catch((result) => {
-                    //alert('Произошла ошибка при показе рекламы.');
-                    window.location.href = `status.html?ip=${encodeURIComponent(serverIp)}`;
+                    alert('Произошла ошибка при показе рекламы.');
+                    //window.location.href = `status.html?ip=${encodeURIComponent(serverIp)}`;
                 }).finally(() => {
                     console.log('Ad has been processed.');
                 });
