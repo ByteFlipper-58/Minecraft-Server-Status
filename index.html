@@ -6,6 +6,7 @@
     <title>Статус Сервера Майнкрафт</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script src="https://sad.adsgram.ai/js/sad.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/eruda"></script>
     <link rel="stylesheet" href="./css/styles.css">
 </head>
 <body>
@@ -93,11 +94,11 @@
             });
         });
 
-        // Function to initialize AdsGram SDK
-        const initializeAdsGram = (debug) => {
+        // Initialize AdsGram SDK
+        const initializeAdsGram = (debug = false) => {
             return window.Adsgram.init({ 
                 blockId: "902", 
-                debug: false, 
+                debug: debug, 
                 debugBannerType: "FullscreenMedia" 
             });
         };
@@ -118,6 +119,8 @@
                 }).catch((result) => {
                     alert('Произошла ошибка при показе рекламы.');
                     window.location.href = `status.html?ip=${encodeURIComponent(serverIp)}`;
+                }).finally(() => {
+                    console.log('Ad has been processed.');
                 });
             } else {
                 alert('Пожалуйста, введите IP адрес сервера.');
@@ -136,6 +139,10 @@
                 }
             }
         });
+
+        // Initialize Eruda for debugging
+        eruda.init();
+
     </script>
 </body>
 </html>
