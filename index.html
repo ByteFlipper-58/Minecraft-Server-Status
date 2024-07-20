@@ -111,13 +111,13 @@
             if (serverIp) {
                 AdController.show().then((result) => {
                     if (result.done) {
-                        window.location.href = `status.html?ip=${encodeURIComponent(serverIp)}`;
+                        //window.location.href = `status.html?ip=${encodeURIComponent(serverIp)}`;
                     } else {
                         alert('Пользователь пропустил рекламу.');
-                        window.location.href = `status.html?ip=${encodeURIComponent(serverIp)}`;
+                        //window.location.href = `status.html?ip=${encodeURIComponent(serverIp)}`;
                     }
                 }).catch((result) => {
-                    alert('Произошла ошибка при показе рекламы.');
+                    //alert('Произошла ошибка при показе рекламы.');
                     window.location.href = `status.html?ip=${encodeURIComponent(serverIp)}`;
                 }).finally(() => {
                     console.log('Ad has been processed.');
