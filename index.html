@@ -95,10 +95,10 @@
         });
 
         // Initialize AdsGram SDK
-        const initializeAdsGram = (debug = false) => {
+        const initializeAdsGram = (debug = true) => {
             return window.Adsgram.init({ 
                 blockId: "1021", 
-                debug: false, 
+                debug: true, 
                 debugBannerType: "FullscreenMedia" 
             });
         };
@@ -111,14 +111,14 @@
             if (serverIp) {
                 AdController.show().then((result) => {
                     if (result.done) {
-                        //window.location.href = `status.html?ip=${encodeURIComponent(serverIp)}`;
+                        window.location.href = `status.html?ip=${encodeURIComponent(serverIp)}`;
                     } else {
                         alert('Пользователь пропустил рекламу.');
-                        //window.location.href = `status.html?ip=${encodeURIComponent(serverIp)}`;
+                        window.location.href = `status.html?ip=${encodeURIComponent(serverIp)}`;
                     }
                 }).catch((result) => {
                     alert('Произошла ошибка при показе рекламы.');
-                    //window.location.href = `status.html?ip=${encodeURIComponent(serverIp)}`;
+                    window.location.href = `status.html?ip=${encodeURIComponent(serverIp)}`;
                 }).finally(() => {
                     console.log('Ad has been processed.');
                 });
